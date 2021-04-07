@@ -9,11 +9,15 @@ uses
 type
   TForm1 = class(TForm)
     Button1: TButton;
+    Memo1: TMemo;
+    Button2: TButton;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
   public
   procedure KvadrKoren(a,b,c:real; var x1,x2:real);
+  function Faktorial(n:word):word;
     { Public declarations }
   end;
 
@@ -32,9 +36,31 @@ begin
 a1:=1;
 b1:=2;
 c1:=-3;
-KvadrKoren(a1,b1,c1,x1,x2);
-InputBox('Процедура квадр', 'корни', 'х1='+FloatToStr(x1)+'x2='+FloatToStr(x2));
-Showmessage('a1='+FloatToStr(a1)+'b1='+FloatToStr(b1)+'c1='+FloatToStr(c1));
+x1:=10000;
+x2:=10000;
+InputBox('', 'начальные значения', 'x1= '+FloatToStr(x1)+' x2= '+FloatToStr(x2));
+{ KvadrKoren(a1, b1, c1, x1,x2); //не может менять a1, b1, c1, может менять x1 и x2}
+KvadrKoren(1, 2, -3, x1,x2); //может менять x1 и x2
+InputBox('Процедура Квадр', 'корни', 'x1= '+FloatToStr(x1)+' x2= '+FloatToStr(x2));
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+i:integer;
+b:word;
+begin
+for i:=1 to 10 do
+Memo1.Lines.Add('Факториал n='+IntToStr(i)+' равен '+IntToStr(Faktorial(i)));
+b:=Faktorial(10);
+ShowMessage('10! = '+IntToStr(b));
+end;
+
+function TForm1.Faktorial(n: word): word;
+var i,j:word;
+begin
+j:=1;
+for i:=1 to n do j:=j*i;
+Result:=j;
 end;
 
 procedure TForm1.KvadrKoren(a, b, c: real; var x1, x2: real);
@@ -46,6 +72,9 @@ exit;
 end;
 x1:=(-b+sqrt(D))/(2*a);
 x2:=(-b-sqrt(D))/(2*a);
+a:=10000;
+b:=10000;
+c:=10000;
 end;
 
 end.
